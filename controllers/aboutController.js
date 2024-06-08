@@ -9,7 +9,7 @@ const aboutInfo = async (req, res) => {
         res.status(200)
             .json({
                 success: true,
-                message: 'Found text',
+                message: 'Text found.',
                 status: 200,
                 data: req.textInfo
             });

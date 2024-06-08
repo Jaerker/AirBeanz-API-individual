@@ -1,7 +1,7 @@
 import { userDb } from '../models/userModel.js';
 
 export default class AuthController {
-    SECRET_KEY = process.env.SECRET_KEY || "a59be5d7-0753-4d62-b665-e62d62a63c5b";
+    SECRET_KEY = process.env.SECRET_KEY || 'a59be5d7-0753-4d62-b665-e62d62a63c5b';
 
     // URL = api/auth/register
     registerUser = async (req, res) => {
@@ -30,7 +30,7 @@ export default class AuthController {
 
         res.status(201).json({
             success: true,
-            message: 'Successfully added user',
+            message: 'User registered successfully.',
             status: 201
         });
     };
@@ -40,7 +40,7 @@ export default class AuthController {
 
         return res.status(202).json({
             success: true,
-            message: 'Logged in successfully! Dont forget to save the token for the users requests',
+            message: 'Logged in successfully! Do not forget to add the token into req.headers with key: "authorization" .',
             status: 202,
             token: req.token
         })
@@ -50,7 +50,7 @@ export default class AuthController {
     getUser = async (req, res) => {
         return res.status(201).json({
             success: true,
-            message: 'User found',
+            message: 'User found.',
             status: 201,
             user: req.searchedUser
         });
@@ -63,7 +63,7 @@ export default class AuthController {
 
         return res.status(200).json({
             success: true,
-            message: 'Active users found.',
+            message: 'Users found.',
             status: 201,
             users: users
         })

@@ -1,6 +1,13 @@
+{"desc":"Bryggd på månadens bananer.","title":"Bananer","price":39,"estimatedTimeInMinutes":5,"_id":"23ZgZf4MHJUbIhp1","modifiedAt":{"$$date":1717760983442}}
 {"id":6,"title":"Cortado","desc":"Bryggd på månadens bönor.","price":39,"_id":"6345zTW8NQ9O5DGz","estimatedTimeInMinutes":0.4}
+{"desc":"En beskriavning på kaffesort","title":"Caffea Lasaasdtte","price":49,"estimatedTimeInMinutes":0.2,"_id":"63GBzDiZjRaAF2AF"}
+{"desc":"En beskriavning på kaffesort","price":79,"estimatedTimeInMinutes":0.5,"createdAt":{"$$date":1717834838297},"_id":"JIilVP6ycXwJ65qu"}
 {"id":2,"title":"Caffè Doppio","desc":"Bryggd på månadens bönor.","price":49,"_id":"Kf3zNE5oNKHU9KAj","estimatedTimeInMinutes":0.2}
-{"id":5,"title":"Kaffe Latte","desc":"Bryggd på månadens bönor.","price":54,"_id":"UQWXNsKroS9bKZL0","estimatedTimeInMinutes":0.5}
+{"desc":"En beskriavning på kaffesort","title":"Kaffe Grande","price":79,"estimatedTimeInMinutes":0.5,"createdAt":{"$$date":1717832500436},"_id":"NWKkNEpDhueiBI46"}
+{"desc":"En beskrivning på kaffesort","title":"Caffea Latte","price":49,"estimatedTimeInMinutes":0.2,"_id":"S1c7oWDQXnzalYG3"}
+{"id":5,"title":"Kaffe Latte","desc":"Bryggd på månadens bönor.","price":54,"_id":"UQWXNsKroS9bKZL0","estimatedTimeInMinutes":0.8,"modifiedAt":{"$$date":1717832143504}}
 {"id":4,"title":"Latte Macchiato","desc":"Bryggd på månadens bönor.","price":49,"_id":"XJDnoqZemVtSSIhm","estimatedTimeInMinutes":1.5}
 {"id":1,"title":"Bryggkaffe","desc":"Bryggd på månadens bönor.","price":39,"_id":"acDrF5CFhSivFUau","estimatedTimeInMinutes":0.15}
+{"desc":"En beskriavning på kaffesort","title":"Macchiato","price":49,"estimatedTimeInMinutes":2,"createdAt":{"$$date":1717761022041},"_id":"kXobNwk4e4LpySdm","modifiedAt":{"$$date":1717832078935}}
+{"desc":"En beskriavning på kaffesort","title":"aas","price":79,"estimatedTimeInMinutes":0.5,"createdAt":{"$$date":1717834970908},"_id":"z4AFMhycQZ6BfoSL"}
 {"id":3,"title":"Cappuccino","desc":"Bryggd på månadens bönor.","price":49,"_id":"zICZOIWupgL5459G","estimatedTimeInMinutes":1}

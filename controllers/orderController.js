@@ -58,7 +58,7 @@ export default class OrderController {
         return res.status(200)
             .json({
                 success: true,
-                message: 'Product successfully added to order. Dont forget to add "orderId" inside body if this is a guest.',
+                message: 'Product is added to order. Do not forget to add the "orderId" inside req.body if this is a guest.',
                 status: 200,
                 order: order,
                 addedProduct: product
@@ -88,7 +88,7 @@ export default class OrderController {
         return res.status(200)
             .json({
                 success: true,
-                message: 'product successfully removed from order.',
+                message: 'product removed from order.',
                 status: 200,
                 order: order,
                 removedProduct: product
