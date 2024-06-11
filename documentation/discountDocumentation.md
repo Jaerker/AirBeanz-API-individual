@@ -1,5 +1,11 @@
 # Discounts - `/api/discounts` 
 
+* [#### GET    `/api/discounts/`                          - Get all discounts](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/discountDocumentation.md#get---apidiscounts)
+* [#### DELETE `/api/discounts/`                          - Remove all discounts](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/discountDocumentation.md#delete-----apidiscounts)
+* [#### POST   `/api/discounts/`                          - Add new discount to database](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/discountDocumentation.md#post-------apidiscounts)
+* [#### PUT    `/api/discounts/:discountId`               - Modify discount in database](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/discountDocumentation.md#put--------apidiscountsdiscountid)
+* [#### DELETE `/api/discounts/:discountId`               - Remove discount from database](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/discountDocumentation.md#delete-----apidiscountsdiscountid)
+
 ## GET - `/api/discounts/`
 
 Hämtar alla kampanj erbjudanden från databasen.
