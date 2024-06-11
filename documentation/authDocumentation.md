@@ -1,6 +1,6 @@
  # Authentication - `/api/auth`
- [### Authentication](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/authDocumentation.md#authentication---apiauth)
-* [#### POST   `/api/auth/register`                       - Register](https://github.com/Jaerker/AirBeanz-API-individual/blob/466e96d5c92ba756651ee354fad5c0d5ab877ffa/documentation/authDocumentation.md?plain=1#L3)
+ 
+* [#### POST   `/api/auth/register`                       - Register](https://github.com/Jaerker/AirBeanz-API-individual/edit/dev/documentation/authDocumentation.md#post---apiauthregister)
 * [#### POST   `/api/auth/login`                          - Login](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/authDocumentation.md#post---apiauthlogin)
 * [#### GET    `/api/auth/users`                          - Get all users](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/authDocumentation.md#get---apiauthusers-)
 * [#### GET    `/api/auth/users/:userId`                  - Specific user](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/authDocumentation.md#get---apiauthusersuserid)
