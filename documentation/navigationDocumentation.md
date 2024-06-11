@@ -1,6 +1,6 @@
 # Navigation - `/api/navigation` 
 
-* [#### GET    `/api/navigation/`                         - Get navigation alternatives in menu](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/navigationDocumentation.md#get---apinavigation)
+* #### [GET    `/api/navigation/`                         - Get navigation alternatives in menu](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/navigationDocumentation.md#get---apinavigation)
 
 ## GET - `/api/navigation`
 Hämtar alla navigeringsobjekt.

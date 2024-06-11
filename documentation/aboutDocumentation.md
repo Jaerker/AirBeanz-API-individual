@@ -1,6 +1,10 @@
-## GET - /api/about
+# About `/api/about/`
 
-* [#### GET    `/api/about/`                              - Get about page information](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/aboutDocumentation.md#get---apiabout)
+
+* #### [GET    `/api/about/`                              - Get about page information](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/aboutDocumentation.md#get---apiabout)
+
+
+## GET - `/api/about/`
 
 Specifik information om företaget/kaffet
 
