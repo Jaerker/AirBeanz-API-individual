@@ -1,14 +1,14 @@
 
-# Orders - `/api/orders` 
+# Orders - `/api/orders/` 
 
-* [#### GET    `/api/orders/`                             - All orders](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/orderDocumentation.md#get---apiorders)
-* [#### GET    `/api/orders/history`                      - Specific user order History (only for logged in users)](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/orderDocumentation.md#get---apiordershistory)
-* [#### GET    `/api/orders/:orderId`                     - Get specific order](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/orderDocumentation.md#get---apiordersorderid)
-* [#### GET    `/api/orders/:orderId/place`               - Place order](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/orderDocumentation.md#get---apiordersorderidplace)
-* [#### GET    `/api/orders/:orderId/estimatedTimeLeft`   - Get estimated time left for order](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/orderDocumentation.md#get---apiordersorderidestimatedtimeleft)
-* [#### POST   `/api/orders/:productId`                   - Add product to order](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/orderDocumentation.md#post---apiordersproductid)
-* [#### POST   `/api/orders/discount/:discountId`         - Add whole discount to order](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/orderDocumentation.md#post---apiordersdiscountdiscountid)
-* [#### DELETE `/api/orders/:productId`                   - Remove product from order](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/orderDocumentation.md#delete---apiordersproductid)
+* #### [GET    `/api/orders/`                             - All orders](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/orderDocumentation.md#get---apiorders)
+* #### [GET    `/api/orders/history`                      - Specific user order History (only for logged in users)](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/orderDocumentation.md#get---apiordershistory)
+* #### [GET    `/api/orders/:orderId`                     - Get specific order](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/orderDocumentation.md#get---apiordersorderid)
+* #### [GET    `/api/orders/:orderId/place`               - Place order](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/orderDocumentation.md#get---apiordersorderidplace)
+* #### [GET    `/api/orders/:orderId/estimatedTimeLeft`   - Get estimated time left for order](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/orderDocumentation.md#get---apiordersorderidestimatedtimeleft)
+* #### [POST   `/api/orders/:productId`                   - Add product to order](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/orderDocumentation.md#post---apiordersproductid)
+* #### [POST   `/api/orders/discount/:discountId`         - Add whole discount to order](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/orderDocumentation.md#post---apiordersdiscountdiscountid)
+* #### [DELETE `/api/orders/:productId`                   - Remove product from order](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/orderDocumentation.md#delete---apiordersproductid)
 
 ## GET - `/api/orders/`
 **Endast admin kan göra detta.**

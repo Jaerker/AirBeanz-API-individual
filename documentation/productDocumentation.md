@@ -1,10 +1,10 @@
 # Products - `/api/products/`
 
-* [#### GET    `/api/products/`                           - Get all products](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/productDocumentation.md#get---apiproducts)
-* [#### GET    `/api/products/:productId`                 - Get specific product](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/productDocumentation.md#get---apiproductsproductid)
-* [#### POST   `/api/products/`                           - Add product to database](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/productDocumentation.md#post---apiproducts)
-* [#### PUT    `/api/products/:productId`                 - Modify product in database](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/productDocumentation.md#put---apiproductsproductid)
-* [#### DELETE `/api/products/:productId`                 - Remove product from database](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/productDocumentation.md#delete---apiproductsproductid)
+* #### [GET    `/api/products/`                           - Get all products](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/productDocumentation.md#get---apiproducts)
+* #### [GET    `/api/products/:productId`                 - Get specific product](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/productDocumentation.md#get---apiproductsproductid)
+* #### [POST   `/api/products/`                           - Add product to database](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/productDocumentation.md#post---apiproducts)
+* #### [PUT    `/api/products/:productId`                 - Modify product in database](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/productDocumentation.md#put---apiproductsproductid)
+* #### [DELETE `/api/products/:productId`                 - Remove product from database](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/productDocumentation.md#delete---apiproductsproductid)
 
 
 ## GET - `/api/products/`
