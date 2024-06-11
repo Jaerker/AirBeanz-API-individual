@@ -1,7 +1,7 @@
 # AirBeanz API Dokumentation
 
 ### Authentication
-* #### POST   `/api/auth/register`                       - Register
+* [#### POST   `/api/auth/register`                       - Register](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/authDocumentation.md#post---apiauthregister)
 * #### POST   `/api/auth/login`                          - Login
 * #### GET    `/api/auth/users`                          - Get all users
 * #### GET    `/api/auth/users/:userId`                  - Specific user
