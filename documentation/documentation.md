@@ -1,5 +1,4 @@
 # AirBeanz API Dokumentation
-
  ### [Authentication](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/authDocumentation.md#authentication---apiauth)
 * #### [POST   `/api/auth/register`                       - Register](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/authDocumentation.md#post---apiauthregister)
 * #### [POST   `/api/auth/login`                          - Login](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/authDocumentation.md#post---apiauthlogin)
@@ -36,5 +35,3 @@
 
 ### [Navigation](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/navigationDocumentation.md#navigation---apinavigation)
 * #### [GET    `/api/navigation/`                         - Get navigation alternatives in menu](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/navigationDocumentation.md#get---apinavigation)
-
- 
