@@ -17,29 +17,44 @@ const validate = {
     orders: {
         //Kollar orderId som passeras in i bodyn. Om inte den finns, skapa ny order     
         one: async (req, res, next) => {
-            const { orderId } = req.body;
+            let { orderId } = req.body;
             const { user } = req;
 
             let orderToReturn = null;
 
             if (!orderId) {
-                // Om ingen orderId, försök hitta en existerande icke-placerad order för användaren
-                if (user) {
-                    orderToReturn = await orderDb.findOne({ userId: user.userId, orderIsPlaced: false });
+                if (req.params.orderId) {
+
+                    orderId = req.params.orderId;
+                    
+                    orderToReturn = await orderDb.findOne({ orderId: orderId, orderIsPlaced: false });
                     if (!orderToReturn) {
-                        orderToReturn = new Order(user.userId);
+                        validationError.message = 'Order not found.';
+                        validationError.status = 404;
+                        return next(validationError);
+                    }
+
+                }
+                else {
+
+                    // Om ingen orderId, försök hitta en existerande icke-placerad order för användaren
+                    if (user) {
+                        orderToReturn = await orderDb.findOne({ userId: user.userId, orderIsPlaced: false });
+                        if (!orderToReturn) {
+                            orderToReturn = new Order(user.userId);
+                            await orderToReturn.init();
+                        }
+                    } else {
+                        orderToReturn = new Order();
                         await orderToReturn.init();
                     }
-                } else {
-                    orderToReturn = new Order();
-                    await orderToReturn.init();
                 }
 
             }
             else {
                 orderToReturn = await orderDb.findOne({ orderId: orderId, orderIsPlaced: false });
                 if (!orderToReturn) {
-                    validationError.message = 'Order ej funnen.';
+                    validationError.message = 'Order not found.';
                     validationError.status = 404;
                     return next(validationError);
                 }
@@ -59,7 +74,7 @@ const validate = {
                     orderId = req.params.orderId;
                 }
                 else {
-                    validationError.message = 'orderId parameter ej funnen.';
+                    validationError.message = 'orderId parameter not found.';
                     validationError.status = 404;
                     return next(validationError);
                 }
@@ -68,14 +83,14 @@ const validate = {
             const order = await orderDb.findOne({ orderId: orderId });
 
             if (!order) {
-                validationError.message = 'Order ej funnen.';
+                validationError.message = 'Order not found.';
                 validationError.status = 404;
                 return next(validationError);
             }
 
             if (req.method === 'DELETE' && order.products.findIndex(item => item.product._id === productId) === -1) {
 
-                validationError.message = `Produkt med _id ${productId} existerar inte i ordern.`;
+                validationError.message = `Product with _id ${productId} does not exist in order.`;
                 validationError.status = 404;
                 return next(validationError);
             }
@@ -100,7 +115,7 @@ const validate = {
             const orders = await orderDb.find({ userId: req.user.userId }).sort({ orderPlacedAt: 1 });
 
             if (orders.length < 0) {
-                validationError.message = 'Inga ordrar funna.'
+                validationError.message = 'No orders found.'
                 validationError.status = 404
                 return next(validationError);
             }
@@ -110,28 +125,30 @@ const validate = {
 
         isOrderPlaced: async (req, res, next) => {
             if (req.order.orderIsPlaced) {
-                validationError.message = 'Unauthorized access: Ordern är redan placerad.';
+                validationError.message = 'Unauthorized access: Order is already placed.';
                 validationError.status = 400;
                 return next(validationError);
             }
             next();
 
         },
+
         isOrderNotPlaced: async (req, res, next) => {
             if (!req.order.orderIsPlaced) {
-                validationError.message = 'Unauthorized access: Ordern är inte placerad än.';
+                validationError.message = 'Unauthorized access: Order is not placed yet.';
                 validationError.status = 400;
                 return next(validationError);
             }
             next();
 
         },
+
         userIdInsideOrder: (req, res, next) => {
             const { order, user } = req;
             if (user) {
                 if (order.userId !== '') {
                     if (order.userId !== user.userId) {
-                        validationError.message = 'Unauthorized access: UserId stämmer inte överens med den i ordern.';
+                        validationError.message = 'Unauthorized access: UserId for user and UserId for order does not match.';
                         validationError.status = 400;
                         return next(validationError);
                     }
@@ -204,6 +221,7 @@ const validate = {
             next();
 
         },
+
         update: async (req, res, next) => {
 
             const { productId } = req.params;
@@ -317,17 +335,17 @@ const validate = {
     },
 
     discounts: {
-        one: async(req, res, next) => {
+        one: async (req, res, next) => {
             const { discountId } = req.params;
-            if(!discountId){
+            if (!discountId) {
                 validationError.message = 'No discountId found.';
                 validationError.status = 400;
                 return next(validationError);
             }
 
-            const discountItem = await discountDb.findOne({_id: discountId});
+            const discountItem = await discountDb.findOne({ _id: discountId });
 
-            if(!discountItem){
+            if (!discountItem) {
                 validationError.message = 'No discount item found.';
                 validationError.status = 404;
                 return next(validationError);
@@ -368,11 +386,12 @@ const validate = {
             next();
 
         },
-        update: async(req, res, next) => {
-            const {discountId} = req.params;
+
+        update: async (req, res, next) => {
+            const { discountId } = req.params;
 
 
-            const allowedUpdates = ['desc', 'title', 'price', 'estimatedTimeInMinutes']; // Add other fields if needed
+            const allowedUpdates = ['desc', 'title', 'discount', 'products', 'expiresAt']; // Add other fields if needed
             const updates = Object.keys(req.body);
             const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
 
@@ -390,10 +409,22 @@ const validate = {
                 validationError.status = 400;
                 return next(validationError);
             }
+            req.newDiscount.modifiedAt = new Date();
+
             req.oldDiscount = discount;
             req.newDiscount = req.body;
 
 
+            next();
+        },
+
+        many: async (req, res, next) => {
+
+            let discounts = await discountDb.find();
+
+            discounts = discounts.filter(discount => discount.expiresAt > new Date().toJSON());
+
+            req.discounts = discounts;
             next();
         },
     },

@@ -1,18 +1,15 @@
 
-# Order Controller Routes
-## GET - /api/orders
+# Orders - `/api/orders` 
+
+## GET - `/api/orders/`
+**Endast admin kan göra detta.**
+
 Hämtar all orderhistorik från alla användare.
 
 ### Headers
 ```
 authorization: "eafyasd..." // Värdet ska vara den token man får när man loggar in 
 ```
-
-### Middleware
-* [checkUserStrict](https://github.com/AdreanRodriguez/Aribean-API/blob/10-orderHistory/middleware/authentication.js#L8)
-* [users.isAdmin](https://github.com/AdreanRodriguez/Aribean-API/blob/10-orderHistory/middleware/validation.js#L215)
-* [orders.many](https://github.com/AdreanRodriguez/Aribean-API/blob/10-orderHistory/middleware/validation.js#L152)
-
 ### Returns 
 * Successful Response
 ```
@@ -21,14 +18,11 @@ authorization: "eafyasd..." // Värdet ska vara den token man får när man logg
     status: 200,
     orders: [...]
 ```
-<hr><br><br>
 
-## GET - /api/orders/history
+## GET - `/api/orders/history`
+**Endast inloggade användare kan göra detta.**
+
 Hämtar orderhistorik för den autentiserade användaren.
-
-### Middleware
-* [checkUserStrict](https://github.com/AdreanRodriguez/Aribean-API/blob/10-orderHistory/middleware/authentication.js#L8)
-* [orders.history](https://github.com/AdreanRodriguez/Aribean-API/blob/10-orderHistory/middleware/validation.js#L90)
 
 ### Headers
 ```
@@ -44,20 +38,8 @@ authorization: "eafyasd..." // Värdet ska vara den token man får när man logg
     orders: [...]
 ```
 
-### Errors
-```
-    success: false,
-    message: 'Unauthorized access.',
-    status: 401
-```
-<hr><br><br>
-
-
-## GET - /api/orders/:orderId
+## GET - `/api/orders/:orderId`
 Hämtar specifik order med `orderId`
-
-### Middleware
-* [orders.one](https://github.com/AdreanRodriguez/Aribean-API/blob/10-orderHistory/middleware/validation.js#L15)
 
 ### Headers
 ```
@@ -70,36 +52,78 @@ authorization: "eafyasd..." // Värdet ska vara den token man får när man logg
     status: 200,
     order: {...}
 ```
-### Errors
+
+## GET - `/api/orders/:orderId/place`
+Placerar ordern vars orderId stämmer överens med `orderId`.
+
+>* `orderId` måste finnas som parameter.
+>* `userId` behöver finnas med om det existerar och stämmer överens med det userId som finns på ordern.
+
+### Req.headers
 ```
-    success: false,
-    message: 'Unauthorized access.',
-    status: 401
+    authorization: "eafyasd..." // Värdet ska vara den token man får när man loggar in 
 ```
 
-### Order not found
+### Req.body
 ```
-    success: false,
-    message: 'Order not found.',
-    status: 404
+    orderId: string,
+    amount?: number
 ```
-<hr><br><br>
+### Returns
+* Successful Response
+```
+    success: true,
+    message: 'Product successfully removed from order.',
+    status: 200,
+    order: {...},
+    removedProduct: {...}
+```
 
+## GET - `/api/orders/:orderId/estimatedTimeLeft`
+**Man måste vara inloggad, om ordern placerades av en inloggad användare.**
 
-## POST - /api/orders/:productId
+Hämtar information om resterande tid av beställning.
+
+>* `orderId` måste finnas som parameter.
+>* `userId` behöver finnas med om det existerar och stämmer överens med det userId som finns på ordern.
+>* `orderIsPlaced` måste vara `true` om den ska kunna dyka upp här med data.
+
+### Req.headers
+```
+    authorization: "eafyasd..." // Värdet ska vara den token man får när man loggar in, om man var inloggad när man la beställningen. 
+```
+
+### Req.body
+```
+    orderId: string
+```
+### Returns
+* Successful Response - Inte klar än
+```
+    success: true,
+    message: 'Uppskattad återstående tid: ${minutes} minuter och ${seconds} sekunder',
+    status: 200,
+    time: {
+        minutes: 10 //Antal minuter
+        seconds: 5 //Antal sekunder
+    }
+```
+* Successful Response - Efter tiden har gått ut
+```
+    success: true,
+    message: 'Kaffet ska ha levererats nu, enligt vårt supersäkra system! Coolt va?',
+    status: 200,
+```
+
+## POST - `/api/orders/:productId`
+
 Lägger till en produkt i användarens aktiva beställning.
 >* Om man inte har en `token` så behöver man fylla i `orderId`.  
->* Om du är inloggad och har en `token` så ***behövs inte*** `orderId`, utan den parametern kan vara tom.  
+>* Om du är inloggad och har en `token` så ***behövs inte*** `orderId`, utan den parametern kan vara tom. Men ha som regel att ha den ifylld om det känns mest tryggt. 
 >* `orderId` får du efter första varan är lagd i kundkorgen.
->* `amount` är valfri att ha med. 
+>* `amount` är valfritt att ha med. 
 >>* Om `amount` inte finns med som parameter:  `amount = 1`
 >>* Om `amount` har ett negativt, eller 0, som värde: `amount = 1`
-
-### Middleware
-* [checkUser](https://github.com/AdreanRodriguez/Aribean-API/blob/10-orderHistory/middleware/authentication.js#L22)
-* [orders.one](https://github.com/AdreanRodriguez/Airbean-API/blob/10-orderHistory/middleware/validation.js#L15)
-* [products.one](https://github.com/AdreanRodriguez/Aribean-API/blob/10-orderHistory/middleware/validation.js#L130)
-* [orders.userIdInsideOrder](https://github.com/AdreanRodriguez/Aribean-API/blob/10-orderHistory/middleware/validation.js#L111)
 
 ### Req.headers
 ```
@@ -126,22 +150,42 @@ authorization: "eafyasd..." // Värdet ska vara den token man får när man logg
     order: {...},
     addedProduct: {...}
 ```
-### Error
-* Obehörig Åtkomst TILLTRÄDE FÖRBJUDET!
-```
-    success: false,
-    message: 'Unauthorized access.',
-    status: 401
-```
-### Order Not Found
-```
-    success: false,
-    message: 'Order not found.',
-    status: 404
-```
-<hr><br><br>
 
-## DELETE - /api/orders/:productId
+## POST - `/api/orders/discount/:discountId`
+
+Lägger till ett kampanjerbjudande i användarens aktiva beställning.
+>* Om man inte har en `token` så behöver man fylla i `orderId`.  
+>* Om du är inloggad och har en `token` så ***behövs inte*** `orderId`, utan den parametern kan vara tom. Men ha som regel att ha den ifylld om det känns mest tryggt. 
+>* `orderId` får du efter första varan är lagd i kundkorgen.
+
+**Kom ihåg att man inte behöver göra detta. Om man placerar varor som blir ett kampanj-erbjudande så kommer det att automatiskt adderas till ordern.**
+
+### Req.headers
+```
+authorization: "eafyasd..." // Värdet ska vara den token man får när man loggar in 
+```
+
+### Req.body
+```
+    orderId?: string,
+```
+### Req.params
+```
+    discountId: string,
+```
+
+### Returns
+
+* Successful Response
+```
+    success: true,
+    message: 'Discount successfully added to order. Dont forget to add "orderId" inside body if this is a guest.',
+    status: 200,
+    order: {...},
+    addedProduct: {...}
+```
+
+## DELETE - `/api/orders/:productId`
 Tar bort en produkt i användarens aktiva beställning.
 >* `orderId` Måste finnas som parameter.
 >* Om man inte loggat in innan, när man börjat plocka produkter, utan gör det senare och fortsätter lägga i varor i kundkorgen, så kopplas `userId` till kundkorgen hädanefter. 
@@ -149,12 +193,6 @@ Tar bort en produkt i användarens aktiva beställning.
 >* `amount` är valfri att ha med. 
 >>* Om `amount` inte finns med som parameter:  `amount = 1`
 >>* Om `amount` har ett negativt, eller 0, som värde: `amount = 1`  
-
-### Middleware
-* [orders.oneStrict](https://github.com/AdreanRodriguez/Airbean-API/blob/73f6f1830df02bbad8c492ed2c838366c135b0ad/middleware/validation.js#L44)
-* [checkUser](https://github.com/AdreanRodriguez/Airbean-API/blob/73f6f1830df02bbad8c492ed2c838366c135b0ad/middleware/authentication.js#L22)
-* [products.one](https://github.com/AdreanRodriguez/Airbean-API/blob/73f6f1830df02bbad8c492ed2c838366c135b0ad/middleware/validation.js#L130)
-* [orders.userIdInsideOrder](https://github.com/AdreanRodriguez/Airbean-API/blob/73f6f1830df02bbad8c492ed2c838366c135b0ad/middleware/validation.js#L111)
 
 ### Req.headers
 ```
@@ -176,67 +214,3 @@ authorization: "eafyasd..." // Värdet ska vara den token man får när man logg
     removedProduct: {...}
 ```
 
-## Errors
-* Unauthorized Access
-```
-    success: false,
-    message: 'Unauthorized access.',
-    status: 401
-```
-### Order Not Found
-```
-    success: false,
-    message: 'Order not found.',
-    status: 404
-```
-
-<hr><br><br>
-
-## POST - /api/orders/:orderId/place
-Placerar ordern vars orderId stämmer överens med `orderId`.
-
->* `orderId` måste finnas som parameter.
->* `userId` behöver finnas med om det existerar och stämmer överens med det userId som finns på ordern.
- 
-
-### Middleware
-* [orders.oneStrict](https://github.com/AdreanRodriguez/Airbean-API/blob/73f6f1830df02bbad8c492ed2c838366c135b0ad/middleware/validation.js#L44)
-* [checkUser](https://github.com/AdreanRodriguez/Airbean-API/blob/73f6f1830df02bbad8c492ed2c838366c135b0ad/middleware/authentication.js#L22)
-* [orders.userIdInsideOrder](https://github.com/AdreanRodriguez/Airbean-API/blob/73f6f1830df02bbad8c492ed2c838366c135b0ad/middleware/validation.js#L111)
-* [orders.isOrderPlaced](https://github.com/AdreanRodriguez/Airbean-API/blob/73f6f1830df02bbad8c492ed2c838366c135b0ad/middleware/validation.js#L102)
-
-
-### Req.headers
-```
-    authorization: "eafyasd..." // Värdet ska vara den token man får när man loggar in 
-```
-
-### Req.body
-```
-    orderId: string,
-    amount?: number
-```
-### Returns
-* Successful Response
-```
-    success: true,
-    message: 'Product successfully removed from order.',
-    status: 200,
-    order: {...},
-    removedProduct: {...}
-```
-
-## Errors
-* Unauthorized Access
-```
-    success: false,
-    message: 'Unauthorized access.',
-    status: 401
-```
-### Order Not Found
-```
-    success: false,
-    message: 'Order not found.',
-    status: 404
-```
-<hr><br><br>

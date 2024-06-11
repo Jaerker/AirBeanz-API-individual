@@ -1,7 +1,28 @@
 import { orderDb } from '../models/orderModel.js';
+import { productDb } from '../models/productModel.js';
 export default class OrderController {
 
-    getOrderById = (req, res) => {
+    
+    getHistoryByUserId = async (req, res) => {
+        res.json({
+            success: true,
+            message: 'Orders found.',
+            status: 200,
+            orders: req.orders
+        })
+    };
+
+    getAllHistory = async (req, res) => {
+        // console.log(req.discounts)
+        res.json({
+            success: true,
+            message: 'Orders found.',
+            status: 200,
+            orders: req.orders
+        })
+    };
+
+    getById = (req, res) => {
         res.json({
             success: true,
             message: 'Order found.',
@@ -10,7 +31,7 @@ export default class OrderController {
         });
     }
 
-    placeOrder = async (req, res, next) => {
+    place = async (req, res) => {
         const { order } = req;
 
         order.orderPlacedAt = new Date();
@@ -33,16 +54,38 @@ export default class OrderController {
                 status: 200,
                 order: req.order
             });
-    }
+    };
+
+    addDiscount = async (req, res) => {
+        // console.log(req.discounts);
+        const order = await this._handleDiscount(req);
+        // console.log('ORDER', order);
+        
+
+        await this.update(order);
+
+        return res.status(200)
+            .json({
+                success: true,
+                message: 'Product is added to order. Do not forget to add the "orderId" inside req.body if this is a guest.',
+                status: 200,
+                order: order
+
+            });        
+    }; 
 
     addProduct = async (req, res) => {
-        const { order, product } = req;
+        const { product } = req;
+        let { order } = req;
+        // console.log(req.discounts);
+        
 
         let { amount } = req.body;
         amount = !amount || amount <= 0 ? 1 : amount;
         const index = order.products.findIndex(item => item.product._id === product._id)
-
         order.totalPrice += product.price * amount;
+
+
 
         if (index === -1) {
             order.products.unshift({
@@ -53,6 +96,7 @@ export default class OrderController {
         else {
             order.products[index].amount += amount;
         }
+        order = await this._handleDiscount(req);
         await this.update(order);
 
         return res.status(200)
@@ -66,7 +110,7 @@ export default class OrderController {
     };
 
     removeProduct = async (req, res) => {
-        const { order, product } = req;
+        let { order, product } = req;
 
         let { amount } = req.body;
 
@@ -78,14 +122,27 @@ export default class OrderController {
             order.products.splice(index, 1); //Tar bort produkten om det inte finns några fler varor kvar av den.
             if(order.products.length === 0){
                 await orderDb.removeOne({orderId: order.orderId});
+
+                return res.status(200)
+                .json({
+                    success: true,
+                    message: 'product removed from order, and deleted order because it is now empty.',
+                    status: 200,
+                    order: order,
+                    removedProduct: product
+                });
             }
 
         }
         else {
             order.products[index].amount -= amount; //Tar bort mängden varor från korgen.
-            await this.update(order);
         }
-        return res.status(200)
+        order = await this._handleDiscount(req);
+
+        await this.update(order);
+
+
+        res.status(200)
             .json({
                 success: true,
                 message: 'product removed from order.',
@@ -126,41 +183,111 @@ export default class OrderController {
         });
     };
 
+    async _handleDiscount (req) {
+        const { order, discounts, discount } = req;
+        if(discount){
+            order.discounts.unshift(discount);
 
-    getHistoryByUserId = async (req, res) => {
-        res.json({
-            success: true,
-            message: 'Orders found.',
-            status: 200,
-            orders: req.orders
-        })
+            for(const product of discount.products){
+                let { productId, amount } = product;
+                amount = !amount || amount <= 0 ? 1 : amount;
+    
+                const newProduct = await productDb.findOne({_id: productId});
+    
+                const index = order.products.findIndex(item => item.product._id === productId)
+                if (index === -1) {
+                    
+                    order.products.unshift({
+                        product: newProduct,
+                        amount: amount
+                    });
+                }
+                else {
+                    order.products[index].amount += amount;
+                }
+                // console.log('NEW PRODUCT', newProduct);
+                order.totalPrice += newProduct.price * amount;
+    
+            }
+            return order;
+        }
+        const orderedProducts = structuredClone(order.products);
+        if(order.discounts.length >0){
+            const possibleIndexesOfUnusableDiscounts = [];
+            order.discounts.forEach(discount => {
+                discount.products.forEach((product, i )=> {
+                    const index = orderedProducts.findIndex(item => item.product._id === product.productId && item.amount >= product.amount );
+                    if(index === -1){ //Det har alltså försvunnit från ordern som gör att kampanjerbjudandet inte kan gälla, därav får vi ta bort den. 
+                        possibleIndexesOfUnusableDiscounts.push(i);
+                    }
+                    else{
+                        if (orderedProducts[index].amount - product.amount === 0) {
+                            orderedProducts.splice(index, 1); //Tar bort produkten i kopian om det inte finns några fler varor kvar av den.
+                        }
+                        else {
+                            orderedProducts[index].amount -= product.amount;
+                        }
+                    }
+
+                });
+            });         
+            if(possibleIndexesOfUnusableDiscounts.length >0){
+                possibleIndexesOfUnusableDiscounts.forEach(i => {
+                    order.discounts.splice(i, 1);
+                })
+            }
+        }
+        for(const discount of discounts){
+           
+            let isEligableForDiscount = true;
+
+            let discountIndexesInsideOrderedProducts = [];
+
+            discount.products.forEach((product) => {
+                const index = orderedProducts.findIndex(item => item.product._id === product.productId && item.amount >= product.amount)
+                if( index === -1){
+                    isEligableForDiscount = false;
+                }
+                else{
+                    discountIndexesInsideOrderedProducts.push({index: index, amount: product.amount});
+                }
+            });
+            if(isEligableForDiscount){
+                discountIndexesInsideOrderedProducts.forEach(item => {
+                    console.log('HÄR ÄR JAG', item.index);
+                    
+                    
+                    if (orderedProducts[item.index].amount - item.amount === 0) {
+                        orderedProducts.splice(item.index, 1); //Tar bort produkten i kopian om det inte finns några fler varor kvar av den.
+                    }
+                    else {
+                        orderedProducts[item.index].amount -= item.amount;
+                    }
+                });
+                order.discounts.push(discount);
+                order.totalDiscount += discount.discount;
+            }
+
+        }
+        return order;
+
+
+        
+
     };
-
-    getAllHistory = async (req, res) => {
-        res.json({
-            success: true,
-            message: 'Orders found.',
-            status: 200,
-            orders: req.orders
-        })
-    };
-
 
     async update(order) {
         try {
             const orderExists = await orderDb.findOne({ orderId: order.orderId });
+            order.totalDiscount = 0;
             if (orderExists && orderExists !== null) {
+                for(const discount of order.discounts){
+                    order.totalDiscount += discount.discount;
+                }
                 await orderDb.update(
-                    { _id: orderExists._id },
+                    { _id: order._id },
                     {
-                        $set: {
-                            userId: order.userId,
-                            products: order.products,
-                            totalPrice: order.totalPrice,
-                            orderPlacedAt: order.orderPlacedAt,
-                            estimatedTimeInMinutes: order.estimatedTimeInMinutes,
-                            orderIsPlaced: order.orderIsPlaced
-                        }
+                        $set: order
                     }
                 );
             } else {

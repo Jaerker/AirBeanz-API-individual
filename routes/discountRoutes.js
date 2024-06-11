@@ -27,4 +27,9 @@ router.delete('/:discountId',
     validateMiddleware.discounts.one,
     controller.remove);
 
+router.delete('/', 
+    authMiddleware.checkUserStrict,
+    validateMiddleware.users.isAdmin,
+    controller.clear);
+
 export default router;

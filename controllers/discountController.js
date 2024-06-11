@@ -20,6 +20,7 @@ export default class DiscountController {
     };
 
     add = async (req, res) => {
+
         await discountDb.insert(req.discount);
         
         res.status(200).json({
@@ -32,7 +33,6 @@ export default class DiscountController {
 
     update = async (req, res) => {
         const {oldDiscount, newDiscount} = req;
-        newDiscount.modifiedAt = new Date();
         await discountDb.update({_id: oldDiscount._id}, {$set: newDiscount}, {upsert:true})
 
         const data = await discountDb.findOne({_id: oldDiscount._id});
@@ -53,6 +53,16 @@ export default class DiscountController {
             message: 'Discount removed successfully.',
             status: 200,
             removedDiscount: req.discount
+        });
+    };
+
+    clear = async (req, res) => {
+        await discountDb.removeMany({}, {multi:true});
+
+        res.status(200).json({
+            success: true,
+            message: 'Discounts removed successfully.',
+            status: 200
         });
     };
 

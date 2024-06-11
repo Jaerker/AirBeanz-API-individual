@@ -1,4 +1,5 @@
 import nedb from 'nedb-promises';
+import { userDb } from './userModel.js';
 
 export const orderDb = nedb.create({
     filename: 'config/orders.db',
@@ -15,6 +16,8 @@ export default class Order {
         this.orderIsPlaced = false;
         this.products = []; // {product: {produkt-objektet}, amount: 3}
         this.totalPrice = 0;
+        this.totalDiscount = 0;
+        this.discounts = [];
         this.credentials = {
             firstName: '',
             lastName: '',

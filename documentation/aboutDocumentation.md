@@ -1,9 +1,9 @@
-# GET - /api/about
+## GET - /api/about
 
 
-### Specifik information om företaget/kaffet
+Specifik information om företaget/kaffet
 
-## Returns
+### Returns
 ```
     success: true,
     message: 'Found text',
@@ -11,7 +11,7 @@
     data: textInfo
 ```
 
-## Errors
+### Errors
 ``` 
 	"success": false,
 	"message": "Bad credentials: No info found for about page.",

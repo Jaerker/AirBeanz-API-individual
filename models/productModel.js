@@ -3,7 +3,6 @@ import Joi from 'joi';
 
 export const productSchema = Joi.object({
     _id: Joi.string().max(30),
-    id: Joi.number(),
     desc: Joi.string().min(10).required(),
     title: Joi.string().min(4).max(30).required(),
     price: Joi.number().positive().required(),

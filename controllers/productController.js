@@ -26,7 +26,6 @@ export default class ProductController {
         req.product.createdAt = new Date();
         const addedProduct = await productDb.insert(req.product);
         
-        
         res.status(200).json({
             success: true,
             message: 'Product successfully added.',
@@ -47,6 +46,7 @@ export default class ProductController {
     update = async (req, res) => {
         const {oldProduct, newProduct} = req;
         newProduct.modifiedAt = new Date();
+        
         await productDb.update({_id: oldProduct._id}, {$set: newProduct}, {upsert:true})
 
         const data = await productDb.findOne({_id: oldProduct._id});

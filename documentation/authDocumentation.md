@@ -1,19 +1,21 @@
-# POST - /api/auth/register
+ # Authentication - `/api/auth`
+
+ ## POST - `/api/auth/register`
 
 Skapar en ny användare baserat på information från `req.body`
 
-## Req.body
+### Req.body
 ```
-	username: string,
-	password: string,
-	verifyPassword: string,
-	email: string,
-	firstName: string,
-	lastName: string,
-	address: string
+	username: string,		//Required
+	password: string,		//Required
+	verifyPassword: string, //Required
+	email: string,			//Required
+	firstName: string,		//Required
+	lastName: string,		//Required
+	address: string			//Required
 ```
 
-## Returns
+### Returns
 
 * #### Successful Response
 ```
@@ -22,74 +24,42 @@ Skapar en ny användare baserat på information från `req.body`
 	status: 201 
 ```
 
-## Errors
-
-* ### Någon av parametrarna saknas
-```
-	success: false,
-	message: '\"xxxxx\" is required', // xxxxx == variabel som saknas i `req.body`
-	status: 400
-```
-
-* ### `password` och `verifyPassword` stämmer inte överens
-```
-	success: false,
-	message = 'Passwords are not equal.',
-	status = 401,
-```
-* ### `username` används redan av någon annan
-```
-	success: false,
-	message = 'Username already taken.',
-	status = 401,
-```
-
-# POST - /api/auth/login
+## POST - `/api/auth/login`
 
 Loggar in användare till hemsidan
 
 **Returnerar en `token` som man behöver lägga till i headers för att säkerställa att man är inloggad gällande andra anrop.**
 
-## Req.body
+### Req.body
 ```
-	username: string,
-	password: string,
+	username: string, //Required
+	password: string, //Required
 ```
 
-## Returns
+### Returns
 
-* ### Successful Response
+* #### Successful Response
 ```
 	success: true,
 	message: 'Logged in succesfully!',
 	status: 202,
-	token: "eyhcjklas..." 
+	token: "eyhcjklas..." //Spara denna token och placera i req.headers.authorization
 ```
 
-## Errors
-
-* ### Någon av parametrarna saknas
-```
-	success: false,
-	message: '\"xxxxx\" is required', // xxxxx == variabel som saknas i `req.body`
-	status: 400
-```
-
-* ### Uppgifterna stämmer inte överens med någon användare
-```
-	success: false,
-	message = 'Bad credentials: Wrong username or password.',
-	status = 400,
-```
-# GET - /api/auth/users 
+## GET - `/api/auth/users `
 *KAN ENDAST ANVÄNDAS SOM ADMIN*
 
 Returnerar alla användare.
 *(Av säkerhetsskäl så skickas inte lösenorden med)*
 
-## Returns
+### Headers
+```
+authorization: "eafyasd..." // Värdet ska vara den token man får när man loggar in 
+```
 
-* ### Successful Response
+### Returns
+
+* #### Successful Response
 ```
 	success: true,
 	message: 'Active users found!',
@@ -97,25 +67,19 @@ Returnerar alla användare.
 	users: [{...},{...}] 
 ```
 
-## Errors
 
-* ### Användaren är inte klassad som admin
-```
-	success: false,
-	message = 'Unauthorized access.',
-	status = 400
-```
-
-# GET - /api/auth/users/:usersId
+## GET - `/api/auth/users/:userId`
 *KAN ENDAST ANVÄNDAS SOM ADMIN*
 
 Returnerar specifik användare.
 *(Av säkerhetsskäl så skickas inte lösenorden med)*
 
+### Headers
+```
+authorization: "eafyasd..." // Värdet ska vara den token man får när man loggar in 
+```
 
-## Returns
-
-* ### Specifik användare hittad (på id)
+### Returns
 
 ```
 	"success": true,
@@ -133,9 +97,18 @@ Returnerar specifik användare.
 	}
 ```
 
-## Errors
-``` 
-	"success": false,
-	"message": "Unauthorized access: ",
-	"status": 400
+## GET - `/api/auth/admin/set/:userId`
+*KAN ENDAST ANVÄNDAS SOM ADMIN*
+
+Antingen ger, eller tar bort, admin rättigheter till specifik användare.
+
+
+### Returns
+
+* #### Specifik användare hittad (på id)
+
+```
+	"success": true,
+	"message": `User with username: ${username} has ${isAdmin ? 'no longer admin rights' : 'admin rights from now'}.`,
+	"status": 201
 ```

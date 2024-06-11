@@ -26,5 +26,11 @@ router.get('/users/:userId',
     validateMiddleware.users.validUserIdParam,
     controller.getUser);
 
+router.get('/admin/set/:userId', 
+    authenticateMiddleware.checkUserStrict,
+    validateMiddleware.users.isAdmin,
+    validateMiddleware.users.validUserIdParam,
+    controller.setAdminRole);
+
 
 export default router;

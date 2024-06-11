@@ -24,7 +24,7 @@ router.get('/history',
 // URL = GET /api/orders/history, header: {authorization}
 router.get('/:orderId',
     validateMiddleware.orders.oneStrict,
-    controller.getOrderById);
+    controller.getById);
 
 // URL = GET /api/orders/:orderId/place, header: {authorization}
 router.get('/:orderId/place',
@@ -32,7 +32,7 @@ router.get('/:orderId/place',
     authMiddleware.checkUser,
     validateMiddleware.orders.userIdInsideOrder,
     validateMiddleware.orders.isOrderPlaced,
-    controller.placeOrder);
+    controller.place);
 
 // URL = GET /api/orders/:orderId/estimatedTimeLeft, header: {authorization}
 router.get('/:orderId/estimatedTimeLeft',
@@ -51,6 +51,13 @@ router.post('/:productId',
     validateMiddleware.products.one,
     validateMiddleware.orders.userIdInsideOrder,
     controller.addProduct);
+
+router.post('/discount/:discountId',
+    authMiddleware.checkUser,
+    validateMiddleware.orders.one,
+    validateMiddleware.discounts.one,
+    validateMiddleware.orders.userIdInsideOrder,
+    controller.addDiscount);
 
 // URL = DELETE /api/orders/:productId, body: {orderId, amount?}, header: {authorization}
 router.delete('/:productId',

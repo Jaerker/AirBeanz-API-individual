@@ -1,13 +1,13 @@
 {"desc":"Bryggd på månadens bananer.","title":"Bananer","price":39,"estimatedTimeInMinutes":5,"_id":"23ZgZf4MHJUbIhp1","modifiedAt":{"$$date":1717760983442}}
-{"id":6,"title":"Cortado","desc":"Bryggd på månadens bönor.","price":39,"_id":"6345zTW8NQ9O5DGz","estimatedTimeInMinutes":0.4}
+{"title":"Cortado","desc":"Bryggd på månadens bönor.","price":39,"_id":"6345zTW8NQ9O5DGz","estimatedTimeInMinutes":0.4}
 {"desc":"En beskriavning på kaffesort","title":"Caffea Lasaasdtte","price":49,"estimatedTimeInMinutes":0.2,"_id":"63GBzDiZjRaAF2AF"}
-{"desc":"En beskriavning på kaffesort","price":79,"estimatedTimeInMinutes":0.5,"createdAt":{"$$date":1717834838297},"_id":"JIilVP6ycXwJ65qu"}
-{"id":2,"title":"Caffè Doppio","desc":"Bryggd på månadens bönor.","price":49,"_id":"Kf3zNE5oNKHU9KAj","estimatedTimeInMinutes":0.2}
+{"desc":"Lite finare kaffe. Du vet, sånt som är gjort av nån slags avföring... Jag gissar på att jag inte ska skriva mer faktiskt.","price":79,"estimatedTimeInMinutes":0.9,"createdAt":{"$$date":1717834838297},"_id":"JIilVP6ycXwJ65qu","title":"Kaffe Deluxe","modifiedAt":{"$$date":1718104652812}}
+{"title":"Caffè Doppio","desc":"Bryggd på månadens bönor.","price":49,"_id":"Kf3zNE5oNKHU9KAj","estimatedTimeInMinutes":0.2}
 {"desc":"En beskriavning på kaffesort","title":"Kaffe Grande","price":79,"estimatedTimeInMinutes":0.5,"createdAt":{"$$date":1717832500436},"_id":"NWKkNEpDhueiBI46"}
-{"desc":"En beskrivning på kaffesort","title":"Caffea Latte","price":49,"estimatedTimeInMinutes":0.2,"_id":"S1c7oWDQXnzalYG3"}
-{"id":5,"title":"Kaffe Latte","desc":"Bryggd på månadens bönor.","price":54,"_id":"UQWXNsKroS9bKZL0","estimatedTimeInMinutes":0.8,"modifiedAt":{"$$date":1717832143504}}
-{"id":4,"title":"Latte Macchiato","desc":"Bryggd på månadens bönor.","price":49,"_id":"XJDnoqZemVtSSIhm","estimatedTimeInMinutes":1.5}
-{"id":1,"title":"Bryggkaffe","desc":"Bryggd på månadens bönor.","price":39,"_id":"acDrF5CFhSivFUau","estimatedTimeInMinutes":0.15}
+{"title":"Kaffe Latte","desc":"Bryggd på månadens bönor.","price":54,"_id":"UQWXNsKroS9bKZL0","estimatedTimeInMinutes":0.8,"modifiedAt":{"$$date":1717832143504}}
+{"title":"Latte Macchiato","desc":"Bryggd på månadens bönor.","price":49,"_id":"XJDnoqZemVtSSIhm","estimatedTimeInMinutes":1.5}
+{"desc":"En sjukt nice bakelse som alla gillar, så länge du inte är allergisk mot nötter. Då kan jag garantera dig att du är körd. Så om du är sugen på denna, men har nötallergi så rekommenderar jag att ha ringt upp 112 i förväg!","title":"Budapest tårtbit","price":89,"estimatedTimeInMinutes":0.5,"createdAt":{"$$date":1718104288382},"hasDiscountOffer":false,"_id":"ZmAfclKk59KDYMyg"}
+{"title":"Bryggkaffe","desc":"Kommer direkt från kannan som stått framme och luftats sedan 06:45 igår!","price":39,"_id":"acDrF5CFhSivFUau","estimatedTimeInMinutes":0.15,"modifiedAt":{"$$date":1718104738395}}
 {"desc":"En beskriavning på kaffesort","title":"Macchiato","price":49,"estimatedTimeInMinutes":2,"createdAt":{"$$date":1717761022041},"_id":"kXobNwk4e4LpySdm","modifiedAt":{"$$date":1717832078935}}
-{"desc":"En beskriavning på kaffesort","title":"aas","price":79,"estimatedTimeInMinutes":0.5,"createdAt":{"$$date":1717834970908},"_id":"z4AFMhycQZ6BfoSL"}
-{"id":3,"title":"Cappuccino","desc":"Bryggd på månadens bönor.","price":49,"_id":"zICZOIWupgL5459G","estimatedTimeInMinutes":1}
+{"desc":"Att vi hittade hans bakelse är helt sinnessjukt! Men för att vara på säkra sidan så har vi gjort replikor av den som just han åt för att förminska risken för matförgiftning från 95% till endast 25%. Kan innehålla spår av buggar.","title":"Gustav Adolfsbakelse","price":59,"estimatedTimeInMinutes":0.5,"createdAt":{"$$date":1718104563752},"hasDiscountOffer":false,"_id":"rrAM4mwd6ZiBNlXx"}
+{"title":"Cappuccino","desc":"Bryggd på månadens bönor.","price":49,"_id":"zICZOIWupgL5459G","estimatedTimeInMinutes":1}

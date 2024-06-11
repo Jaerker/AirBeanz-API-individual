@@ -35,6 +35,19 @@ export default class AuthController {
         });
     };
 
+    setAdminRole = async (req,res) => {
+        const {searchedUser} = req;
+
+        const message = `User with username: ${searchedUser.username} has ${searchedUser.isAdmin ? 'no longer admin rights' : 'admin rights from now'}.`;
+
+        userDb.update({_id: searchedUser._id}, {$set: {isAdmin: !searchedUser.isAdmin}});
+        res.status(201).json({
+            success: true,
+            message: message,
+            status: 201
+        });
+    }
+
     // URL = api/auth/login
     loginUser = async (req, res) => {
 
