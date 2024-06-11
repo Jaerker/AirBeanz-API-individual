@@ -1,10 +1,10 @@
  # Authentication - `/api/auth`
  
-* [#### POST   `/api/auth/register`                       - Register](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/authDocumentation.md#post---apiauthregister)
-* [#### POST   `/api/auth/login`                          - Login](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/authDocumentation.md#post---apiauthlogin)
-* [#### GET    `/api/auth/users`                          - Get all users](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/authDocumentation.md#get---apiauthusers-)
-* [#### GET    `/api/auth/users/:userId`                  - Specific user](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/authDocumentation.md#get---apiauthusersuserid)
-* [#### GET    `/api/auth/admin/set/:userId`              - Set admin rights on/off for specific user](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/authDocumentation.md#get---apiauthadminsetuserid)
+* [#### POST   `/api/auth/register`                       - Register](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/authDocumentation.md#post---apiauthregister)
+* [#### POST   `/api/auth/login`                          - Login](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/authDocumentation.md#post---apiauthlogin)
+* [#### GET    `/api/auth/users`                          - Get all users](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/authDocumentation.md#get---apiauthusers-)
+* [#### GET    `/api/auth/users/:userId`                  - Specific user](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/authDocumentation.md#get---apiauthusersuserid)
+* [#### GET    `/api/auth/admin/set/:userId`              - Set admin rights on/off for specific user](https://github.com/Jaerker/AirBeanz-API-individual/blob/main/documentation/authDocumentation.md#get---apiauthadminsetuserid)
 
  ## POST - `/api/auth/register`
 
