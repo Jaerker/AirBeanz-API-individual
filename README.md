@@ -1,6 +1,6 @@
 # Airbean-API
 
-Dokumentationen finns här!
+[Dokumentationen finns här!](https://github.com/Jaerker/AirBeanz-API-individual/blob/dev/documentation/documentation.md#airbeanz-api-dokumentation)
 
 ## Gruppuppgift
 ### För Godkänt
